@@ -32,11 +32,16 @@ public class RSUServer {
 					System.out.println("client>" + message);
 
 					if (message.equals("This is a AdClient.")) {
-						sendMessage("Welcome to the DSRC Advertisement system!");
-						sendMessage("1 Print your current advertisement.");
+						sendMessage("Welcome to the DSRC Advertisement system! Please choose:");
+					} else if (message.equals("1")) {
+						sendMessage("Print");
 					} else if (message.equals("2")) {
-						sendMessage("You sent 2");
+						sendMessage("changee");
+					} else if (message.equals("3")) {
+						sendMessage("bye");
 					}
+					
+ 					
 
 				} catch (ClassNotFoundException classnot) {
 					System.err.println("Data received in unknown format");

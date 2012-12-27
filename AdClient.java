@@ -28,8 +28,15 @@ public class AdClient{
 		    message = (String)in.readObject();
 		    System.out.println("server>" + message);
 
+		    System.out.println("1 Print out your current advertisement.");
+		    System.out.println("2 Change your advertisement.");
+		    System.out.println("3 Quit");
 		    Scanner sc = new Scanner(System.in);
 		    String choice = sc.nextLine();
+		    while(!(choice.equals("1") || choice.equals("2") || choice.equals("3"))) {
+		    	System.out.println("please enter 1 or 2 or 3");
+		    	choice = sc.nextLine();
+		    }
 		    
 		    sendMessage(choice);
 		    message = "bye";
