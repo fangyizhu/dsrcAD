@@ -33,16 +33,14 @@ public class RSUServer {
 
 					if (message.equals("This is a AdClient.")) {
 						sendMessage("Welcome to the DSRC Advertisement system! Please choose:");
-					} else if (message.equals("1")) {
+					} else if (message.equals("userinput1")) {
 						sendMessage("Print");
-					} else if (message.equals("2")) {
-						sendMessage("changee");
-					} else if (message.equals("3")) {
+					} else if (message.equals("userinput2")) {
+						sendMessage("Please input the new advertisement");
+					} 
+					else if (message.equals("userinput3")) {
 						sendMessage("bye");
 					}
-					
- 					
-
 				} catch (ClassNotFoundException classnot) {
 					System.err.println("Data received in unknown format");
 				}
@@ -66,6 +64,15 @@ public class RSUServer {
 			out.writeObject(msg);
 			out.flush();
 			System.out.println("server>" + msg);
+		} catch (IOException ioException) {
+			ioException.printStackTrace();
+		}
+	}
+	
+	void sendUnseenMessage(String msg) {
+		try {
+			out.writeObject(msg);
+			out.flush();
 		} catch (IOException ioException) {
 			ioException.printStackTrace();
 		}
