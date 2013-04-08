@@ -41,6 +41,10 @@ public class RSUServer {
 
 					if (message.equals("This is a AdClient.")) {
 						sendMessage("Welcome to the DSRC Advertisement system! Please choose:");
+					} else if (message.equals("This is a car!")) {
+						String currentAd = readFromDB();
+						sendMessage(currentAd);
+						sendUnseenMessage("bye");
 					} else if (message.equals("userinput1")) {
 						String currentAd = readFromDB();
 						sendMessage("Your current advertisement is: "
