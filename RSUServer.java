@@ -1,5 +1,11 @@
 import java.io.*;
 import java.net.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class RSUServer {
 	ServerSocket providerSocket;
@@ -31,14 +37,23 @@ public class RSUServer {
 					message = (String) in.readObject();
 					System.out.println("client>" + message);
 
+					// TODO: receive identity
+
 					if (message.equals("This is a AdClient.")) {
 						sendMessage("Welcome to the DSRC Advertisement system! Please choose:");
 					} else if (message.equals("userinput1")) {
-						sendMessage("Print");
+						String currentAd = readFromDB();
+						sendMessage("Your current advertisement is: "
+								+ currentAd);
+						sendMessage("bye");
 					} else if (message.equals("userinput2")) {
-						sendMessage("Please input the new advertisement");
-					} 
-					else if (message.equals("userinput3")) {
+						sendMessage("Please input the new advertisement: ");
+						message = (String) in.readObject();
+						writeToDB(message);
+						sendMessage("Your advertisement has changed to "
+								+ message);
+						sendMessage("bye");
+					} else if (message.equals("userinput3")) {
 						sendMessage("bye");
 					}
 				} catch (ClassNotFoundException classnot) {
@@ -59,6 +74,28 @@ public class RSUServer {
 		}
 	}
 
+	void writeToDB(String advertisement) {
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(
+					"someCompany.txt"));
+			out.write(advertisement + "\n");
+			out.close();
+		} catch (IOException e) {
+		}
+	}
+
+	String readFromDB() {
+		String currentAdvertisement = "";
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(
+					"someCompany.txt"));
+			currentAdvertisement = br.readLine();
+		} catch (IOException e) {
+			System.err.println("Error: " + e);
+		}
+		return currentAdvertisement;
+	}
+
 	void sendMessage(String msg) {
 		try {
 			out.writeObject(msg);
@@ -68,7 +105,7 @@ public class RSUServer {
 			ioException.printStackTrace();
 		}
 	}
-	
+
 	void sendUnseenMessage(String msg) {
 		try {
 			out.writeObject(msg);

@@ -29,9 +29,10 @@ public class AdClient {
 					sendMessage("This is a AdClient.");
 					message = (String) in.readObject();
 					System.out.println("server>" + message);
-
-					System.out
-							.println("1 Print out your current advertisement.");
+					
+					//TODO: send identity
+					
+					System.out.println("1 Print out your current advertisement.");
 					System.out.println("2 Change your advertisement.");
 					System.out.println("3 Quit");
 					Scanner sc = new Scanner(System.in);
@@ -46,12 +47,16 @@ public class AdClient {
 					}
 					else if (choice.equals("2")) {
 						sendUnseenMessage("userinput2");
+						message = (String)in.readObject();
+						System.out.println("server>" + message);
+						String newAd = sc.nextLine();
+						sendUnseenMessage(newAd);
 					}
 					else if (choice.equals("3")) {
+						message = (String)in.readObject();
+						System.out.println("server>" + message);
 						sendUnseenMessage("bye");
 					}
-					
-
 				} catch (ClassNotFoundException classNot) {
 					System.err.println("data received in unknown format");
 				}
@@ -59,7 +64,7 @@ public class AdClient {
 		} catch (UnknownHostException unknownHost) {
 			System.err.println("You are trying to connect to an unknown host!");
 		} catch (IOException ioException) {
-			ioException.printStackTrace();
+			System.err.println("Ooops, server is down.");
 		} finally {
 			// 4: Closing connection
 			try {
