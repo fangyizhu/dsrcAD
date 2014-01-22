@@ -21,17 +21,15 @@ public class CarClient {
 			out.flush();
 			in = new ObjectInputStream(requestSocket.getInputStream());
 			// 3: Communicating with the server
-			do {
-				try {
-					message = (String) in.readObject();
-					System.out.println("server>" + message);
-					sendUnseenMessage("This is a car!");
-					message = (String) in.readObject();
-					System.out.println(message);
-				} catch (ClassNotFoundException classNot) {
-					System.err.println("data received in unknown format");
-				}
-			} while (!message.equals("bye"));
+			try {
+				message = (String) in.readObject();
+				System.out.println("server>" + message);
+				sendUnseenMessage("Thisisacar!");
+				message = (String) in.readObject();
+				System.out.println(message);
+			} catch (ClassNotFoundException classNot) {
+				System.err.println("data received in unknown format");
+			}
 		} catch (UnknownHostException unknownHost) {
 			System.err.println("You are trying to connect to an unknown host!");
 		} catch (IOException ioException) {
@@ -68,7 +66,7 @@ public class CarClient {
 	}
 
 	public static void main(String args[]) {
-		AdClient client = new AdClient();
+		CarClient client = new CarClient();
 		client.run();
 	}
 }

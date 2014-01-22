@@ -35,13 +35,11 @@ public class RSUServer {
 			do {
 				try {
 					message = (String) in.readObject();
-					System.out.println("client>" + message);
-
-					// TODO: receive identity
+					//System.out.println("client>" + message);A
 
 					if (message.equals("This is a AdClient.")) {
 						sendMessage("Welcome to the DSRC Advertisement system! Please choose:");
-					} else if (message.equals("This is a car!")) {
+					} else if (message.equals("Thisisacar!")) {
 						String currentAd = readFromDB();
 						sendMessage(currentAd);
 						sendUnseenMessage("bye");

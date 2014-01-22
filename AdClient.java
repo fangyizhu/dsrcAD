@@ -30,8 +30,6 @@ public class AdClient {
 					message = (String) in.readObject();
 					System.out.println("server>" + message);
 					
-					//TODO: send identity
-					
 					System.out.println("1 Print out your current advertisement.");
 					System.out.println("2 Change your advertisement.");
 					System.out.println("3 Quit");
@@ -47,8 +45,8 @@ public class AdClient {
 					}
 					else if (choice.equals("2")) {
 						sendUnseenMessage("userinput2");
+						System.out.println("Please enter your new advertisement:");
 						message = (String)in.readObject();
-						System.out.println("server>" + message);
 						String newAd = sc.nextLine();
 						sendUnseenMessage(newAd);
 					}
