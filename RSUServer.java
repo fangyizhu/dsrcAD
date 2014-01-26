@@ -16,7 +16,6 @@ public class RSUServer {
 
 	RSUServer() {
 	}
-
 	void run() {
 		try {
 			// 1. creating a server socket
